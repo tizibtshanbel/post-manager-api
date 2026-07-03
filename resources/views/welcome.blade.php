@@ -17,6 +17,40 @@
             </style>
         @endif
     </head>
+    <div class="w-full max-w-4xl mx-auto mt-8 mb-8 px-4">
+    <h2 class="text-lg font-semibold mb-4 text-[#1b1b18] dark:text-[#EDEDEC]">
+        📋 All Posts ({{ $posts->count() }})
+    </h2>
+
+    @if ($posts->isEmpty())
+        <p class="text-[#706f6c] dark:text-[#A1A09A]">No posts yet.</p>
+    @else
+        <div class="overflow-hidden rounded-lg border border-[#e3e3e0] dark:border-[#3E3E3A]">
+            <table class="w-full text-sm text-left">
+                <thead class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200">
+                    <tr>
+                        <th class="px-4 py-2">ID</th>
+                        <th class="px-4 py-2">User ID</th>
+                        <th class="px-4 py-2">Title</th>
+                        <th class="px-4 py-2">Content</th>
+                        <th class="px-4 py-2">Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($posts as $post)
+                            <tr class="border-t border-[#e3e3e0] dark:border-[#3E3E3A] text-gray-900 dark:text-gray-300">
+                            <td class="px-4 py-2">{{ $post->id }}</td>
+                            <td class="px-4 py-2">{{ $post->user_id }}</td>
+                            <td class="px-4 py-2">{{ $post->title }}</td>
+                            <td class="px-4 py-2">{{ Str::limit($post->content, 40) }}</td>
+                            <td class="px-4 py-2">{{ $post->created_at->format('Y-m-d H:i') }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
+</div>
     <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
         <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
             @if (Route::has('login'))
